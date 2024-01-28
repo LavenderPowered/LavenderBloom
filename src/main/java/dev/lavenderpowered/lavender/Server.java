@@ -132,7 +132,7 @@ public class Server {
         server.start(Settings.getServerIp(), Settings.getServerPort());
     }
 
-    public static void setupWorld() {
+    public static void setupWorld() throws IOException {
         InstanceManager instanceManager = MinecraftServer.getInstanceManager();
         if (Settings.isInstanceEnabled() && Settings.getWorldType() == Settings.WorldType.FLAT) {
             // Create the instance
@@ -150,12 +150,14 @@ public class Server {
             for (String worldLoc : Settings.getWorldLocations()) {
                 WorldLoading.loadAnvil(instanceManager, worldLoc);
             }
-            logger.info("Loaded instances: " + instanceManager.getInstances().size());
         } else if (Settings.isInstanceEnabled() && Settings.getWorldType() == Settings.WorldType.POLAR && !Settings.getWorldLocations().isEmpty()) {
             for (String worldLoc : Settings.getWorldLocations()) {
                 WorldLoading.loadPolar(instanceManager, worldLoc);
             }
-            logger.info("Loaded instances: " + instanceManager.getInstances().size());
+        } else if (Settings.getWorldType() == Settings.WorldType.POLAR_CONVERT && !Settings.getWorldLocations().isEmpty()) {
+            for (String worldLoc : Settings.getWorldLocations()) {
+                WorldLoading.anvilToPolar(worldLoc);
+            }
         } else {
             logger.warn("There is no instance enabled! You can change that in worlds.json file.");
         }

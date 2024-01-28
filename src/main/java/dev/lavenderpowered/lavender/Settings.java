@@ -129,7 +129,8 @@ public class Settings {
     public enum WorldType {
         FLAT("flat"),
         ANVIL("anvil"),
-        POLAR("polar");
+        POLAR("polar"),
+        POLAR_CONVERT("polar_convert");
 
         private final String name;
 

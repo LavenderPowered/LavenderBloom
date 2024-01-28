@@ -2,7 +2,7 @@
 
 Lavender (earlier [Bastom](https://github.com/AndusDEV/bastom)) is a [Minestom](https://github.com/minestom/minestom) minecraft server software containing some basic features that could be useful.
 
-This is LavenderEssence the most basic "edition" of Lavender. It contains the most basic features that most Minecraft Servers would use.
+This is LavenderBloom. This edition of Lavender allows you to load Minecraft worlds using standard minecraft format Anvil or use [Polar](https://github.com/hollow-cube/polar) by Hollow Cube
 
 ## Table of Contents
 
@@ -13,10 +13,10 @@ This is LavenderEssence the most basic "edition" of Lavender. It contains the mo
 - [License](#license)
 
 ## Install
-You could either just download a [release](https://github.com/LavenderPowered/LavenderEssence/releases) or you compile the server yourself using the following commands under Linux
+You could either just download a [release](https://github.com/LavenderPowered/LavenderBloom/releases) or you compile the server yourself using the following commands under Linux
 ```shell
-git clone https://github.com/LavenderPowered/LavenderEssence.git
-cd LavenderEssence
+git clone https://github.com/LavenderPowered/LavenderBloom.git
+cd LavenderBloom
 ./gradlew build
 ```
 The server jar will be located at `build/libs/Lavender-<VERSION>.jar`.
@@ -48,7 +48,9 @@ There is also a config file for worlds. In this edition there is only flat insta
 ```json5
 {
   "ENABLE_INSTANCE": false,
-  "WORLD_TYPE": "FLAT"
+  "WORLD_TYPE": "FLAT",
+  // Ex. ["world1", "world2"] assuming they're in the root directory of the server, if not add folders ex. ["worlds/world1"]
+  "WORLD_LOCATIONS": []
 }
 ```
 You have to restart the server for changes in there to take effect.
