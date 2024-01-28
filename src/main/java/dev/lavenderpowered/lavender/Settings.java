@@ -3,8 +3,14 @@ package dev.lavenderpowered.lavender;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minestom.server.MinecraftServer;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 public class Settings {
     private static final Gson gson = new GsonBuilder()
@@ -93,10 +99,12 @@ public class Settings {
     private static class WorldsState {
         private final boolean ENABLE_INSTANCE;
         private final WorldType WORLD_TYPE;
+        private final List<String> WORLD_LOCATIONS;
 
         private WorldsState() {
             this.ENABLE_INSTANCE = false;
             this.WORLD_TYPE = WorldType.FLAT;
+            this.WORLD_LOCATIONS = new ArrayList<>();
         }
     }
 
@@ -119,7 +127,9 @@ public class Settings {
     }
 
     public enum WorldType {
-        FLAT("flat");
+        FLAT("flat"),
+        ANVIL("anvil"),
+        POLAR("polar");
 
         private final String name;
 
@@ -163,4 +173,6 @@ public class Settings {
 
     public static boolean isInstanceEnabled() { return currentWorlds.ENABLE_INSTANCE; }
     public static WorldType getWorldType() { return currentWorlds.WORLD_TYPE; }
+
+    public static List<String> getWorldLocations() { return currentWorlds.WORLD_LOCATIONS; }
 }

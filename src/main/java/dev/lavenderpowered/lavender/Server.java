@@ -1,5 +1,6 @@
 package dev.lavenderpowered.lavender;
 
+import dev.lavenderpowered.lavender.bloom.WorldLoading;
 import dev.lavenderpowered.lavender.commands.Commands;
 import dev.lavenderpowered.lavender.commands.Permissions;
 import net.hollowcube.minestom.extensions.ExtensionBootstrap;
@@ -145,6 +146,16 @@ public class Server {
                 event.setSpawningInstance(instanceContainer);
                 player.setRespawnPoint(new Pos(0, 5, 0));
             });
+        } else if (Settings.isInstanceEnabled() && Settings.getWorldType() == Settings.WorldType.ANVIL && !Settings.getWorldLocations().isEmpty()) {
+            for (String worldLoc : Settings.getWorldLocations()) {
+                WorldLoading.loadAnvil(instanceManager, worldLoc);
+            }
+            logger.info("Loaded instances: " + instanceManager.getInstances().size());
+        } else if (Settings.isInstanceEnabled() && Settings.getWorldType() == Settings.WorldType.POLAR && !Settings.getWorldLocations().isEmpty()) {
+            for (String worldLoc : Settings.getWorldLocations()) {
+                WorldLoading.loadPolar(instanceManager, worldLoc);
+            }
+            logger.info("Loaded instances: " + instanceManager.getInstances().size());
         } else {
             logger.warn("There is no instance enabled! You can change that in worlds.json file.");
         }
@@ -152,7 +163,9 @@ public class Server {
         MinecraftServer.getGlobalEventHandler().addListener(PlayerLoginEvent.class, event -> {
             if (instanceManager.getInstances().isEmpty())
                 event.getPlayer().kick(Component.text("There is no instance available!\n" +
-                        "You can enable a basic flat instance in worlds.json using \"FLAT\" as world_type\n", NamedTextColor.RED));
+                        "You can enable a basic flat instance in worlds.json using \"FLAT\" as world_type\n" +
+                        "Or load a world (or worlds) using \"ANVIL\" or \"POLAR\"" +
+                        "More info at: lavender.andus.dev", NamedTextColor.RED));
         });
     }
 
