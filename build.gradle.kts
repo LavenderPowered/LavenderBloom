@@ -7,7 +7,7 @@ plugins {
 var displayName = "Lavender"
 
 group = "dev.lavenderpowered.lavender"
-version = "1.0.0"
+version = "1.0.0-bloom"
 
 dependencies {
     implementation(libs.minestom)

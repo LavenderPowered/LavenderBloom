@@ -158,6 +158,10 @@ public class Server {
             for (String worldLoc : Settings.getWorldLocations()) {
                 WorldLoading.anvilToPolar(worldLoc);
             }
+            logger.info("All worlds in polar_conversion were converted to .polar format,\n " +
+                    "move the files to the directory where you want to keep the worlds in,\n " +
+                    "change the worlds in worlds.json, and start the server again with POLAR as the WORLD_TYPE");
+            System.exit(0);
         } else {
             logger.warn("There is no instance enabled! You can change that in worlds.json file.");
         }

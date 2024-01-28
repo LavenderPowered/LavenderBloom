@@ -48,6 +48,8 @@ There is also a config file for worlds. In this edition there is only flat insta
 ```json5
 {
   "ENABLE_INSTANCE": false,
+  // FLAT, ANVIL, POLAR, POLAR_CONVERT
+  // If world type is set to POLAR_CONVERT it will try to convert all directories in "polar_conversion" directory (needs to be created manually) to .polar format.
   "WORLD_TYPE": "FLAT",
   // Ex. ["world1", "world2"] assuming they're in the root directory of the server, if not add folders ex. ["worlds/world1"]
   "WORLD_LOCATIONS": []
