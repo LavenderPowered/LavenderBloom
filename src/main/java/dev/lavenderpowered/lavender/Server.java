@@ -128,6 +128,7 @@ public class Server {
             OpenToLAN.open();
         }
 
+        MinecraftServer.setBrandName("LavenderPowered (LP " + VERSION + "/MC " + MinecraftServer.VERSION_NAME + ")");
         logger.info("Running in " + Settings.getMode() + " mode. (Opened to LAN: " + OpenToLAN.isOpen() + ")");
         logger.info("MOTD set to: " + Utils.readFromFile("motd.txt", "§7A §bBastom §7Server!"));
         logger.info("Listening on " + Settings.getServerIp() + ":" + Settings.getServerPort());
