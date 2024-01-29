@@ -118,7 +118,10 @@ public class Server {
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
         globalEventHandler.addListener(ServerListPingEvent.class, event -> {
             ResponseData responseData = event.getResponseData();
-            responseData.setDescription(Utils.readFromFile("motd.txt", "§7A §bBastom §7Server!"));
+            responseData.setDescription(Utils.readFromFile("motd.txt", "§7A §d§lLavender §7Server!"));
+            if (Settings.getServerListPlayers() == Settings.ServerListPlayers.HIDE) {
+                responseData.setPlayersHidden(true);
+            }
         });
 
         if (Settings.isOpenToLAN()) {

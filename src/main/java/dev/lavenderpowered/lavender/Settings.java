@@ -76,6 +76,7 @@ public class Settings {
         private final String ENTITY_VIEW_DISTANCE;
         private final boolean TERMINAL_DISABLED;
 
+        private final ServerListPlayers LIST_PLAYERS;
         private final boolean EXTS_COMMAND_FOR_PLAYERS;
         private final boolean OPEN_TO_LAN;
 
@@ -91,6 +92,7 @@ public class Settings {
             this.ENTITY_VIEW_DISTANCE = "5";
             this.TERMINAL_DISABLED = false;
 
+            this.LIST_PLAYERS = ServerListPlayers.SHOW;
             this.EXTS_COMMAND_FOR_PLAYERS = false;
             this.OPEN_TO_LAN = false;
         }
@@ -144,6 +146,22 @@ public class Settings {
         }
     }
 
+    public enum ServerListPlayers {
+        SHOW("show"),
+        HIDE("hide");
+
+        private final String name;
+
+        ServerListPlayers(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return this.name;
+        }
+    }
+
     public static RunMode getMode() { return currentSettings.MODE; }
 
     public static String getServerIp() {
@@ -163,17 +181,37 @@ public class Settings {
         return currentSettings.VELOCITY_SECRET;
     }
 
-    public static String getTps() { return currentSettings.TPS; }
-    public static String getChunkViewDistance() { return currentSettings.CHUNK_VIEW_DISTANCE; }
-    public static String getEntityViewDistance() { return currentSettings.ENTITY_VIEW_DISTANCE; }
-    public static boolean isTerminalDisabled() { return currentSettings.TERMINAL_DISABLED; }
+    public static String getTps() {
+        return currentSettings.TPS;
+    }
+    public static String getChunkViewDistance() {
+        return currentSettings.CHUNK_VIEW_DISTANCE;
+    }
+    public static String getEntityViewDistance() {
+        return currentSettings.ENTITY_VIEW_DISTANCE;
+    }
+    public static boolean isTerminalDisabled() {
+        return currentSettings.TERMINAL_DISABLED;
+    }
 
-    public static boolean extCommandEnabled() { return currentSettings.EXTS_COMMAND_FOR_PLAYERS; }
+    public static boolean extCommandEnabled() {
+        return currentSettings.EXTS_COMMAND_FOR_PLAYERS;
+    }
 
-    public static boolean isOpenToLAN() { return currentSettings.OPEN_TO_LAN; }
+    public static boolean isOpenToLAN() {
+        return currentSettings.OPEN_TO_LAN;
+    }
 
-    public static boolean isInstanceEnabled() { return currentWorlds.ENABLE_INSTANCE; }
-    public static WorldType getWorldType() { return currentWorlds.WORLD_TYPE; }
-
-    public static List<String> getWorldLocations() { return currentWorlds.WORLD_LOCATIONS; }
+    public static boolean isInstanceEnabled() {
+        return currentWorlds.ENABLE_INSTANCE;
+    }
+    public static WorldType getWorldType() {
+        return currentWorlds.WORLD_TYPE;
+    }
+    public static ServerListPlayers getServerListPlayers() {
+        return currentSettings.LIST_PLAYERS;
+    }
+    public static List<String> getWorldLocations() { 
+        return currentWorlds.WORLD_LOCATIONS; 
+    }
 }
