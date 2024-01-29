@@ -184,10 +184,12 @@ public class Server {
         commandManager.register(Commands.PLAYER_LIST);
         commandManager.register(Commands.HELP);
         commandManager.register(Commands.SERVER_INFO);
+        commandManager.register(Commands.WORLD_TP);
         consoleSender.addPermission(Permissions.SHUTDOWN);
         consoleSender.addPermission(Permissions.RESTART);
         consoleSender.addPermission(Permissions.EXTENSIONS);
         consoleSender.addPermission(Permissions.SERVER_INFO);
+        consoleSender.addPermission(Permissions.WORLD_TP);
         ExtensionBootstrap.getExtensionManager().setExtensionDataRoot(Path.of("config"));
     }
 }

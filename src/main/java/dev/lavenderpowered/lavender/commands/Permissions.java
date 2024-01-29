@@ -7,4 +7,5 @@ public class Permissions {
     public static final Permission RESTART = new Permission("lavender.restart");
     public static final Permission EXTENSIONS = new Permission("lavender.exts");
     public static final Permission SERVER_INFO = new Permission("lavender.svinfo");
+    public static final Permission WORLD_TP = new Permission("lavender.worldtp");
 }

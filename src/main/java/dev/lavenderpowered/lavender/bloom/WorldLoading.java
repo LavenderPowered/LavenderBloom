@@ -15,15 +15,11 @@ import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-
-import static dev.lavenderpowered.lavender.Server.logger;
 
 public class WorldLoading {
     public static void loadAnvil(InstanceManager instanceManager, String worldLocation) {
@@ -36,6 +32,7 @@ public class WorldLoading {
             // Figure out how to get spawn coordinates
             player.setRespawnPoint(new Pos(0, 250, 0));
         });
+        InstanceRegistry.registerInstance(instanceContainer, worldLocation);
     }
 
     public static void loadPolar(InstanceManager instanceManager, String worldLocation) throws IOException {
@@ -48,12 +45,14 @@ public class WorldLoading {
             // Figure out how to get spawn coordinates
             player.setRespawnPoint(new Pos(0, 250, 0));
         });
+        InstanceRegistry.registerInstance(instanceContainer, worldLocation);
     }
 
     public static void anvilToPolar(String worldFolder) throws IOException {
-        String worldDir = Paths.get(".").toAbsolutePath()
+        Path path = Paths.get(".");
+        String worldDir = path.toAbsolutePath()
                 .toString()
-                .substring(0, Paths.get(".").toAbsolutePath().toString().lastIndexOf("/") + 1)
+                .substring(0, path.toAbsolutePath().toString().lastIndexOf("/") + 1)
                 + "polar_conversion"
                 + File.separator
                 + worldFolder;
