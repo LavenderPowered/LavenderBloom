@@ -38,7 +38,6 @@ public class Settings {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(worldsFile));
             currentWorlds = gson.fromJson(reader, WorldsState.class);
-            MinecraftServer.LOGGER.warn("Found");
         } catch (FileNotFoundException e) {
             currentWorlds = new WorldsState();
             try {
@@ -102,11 +101,13 @@ public class Settings {
         private final boolean ENABLE_INSTANCE;
         private final WorldType WORLD_TYPE;
         private final List<String> WORLD_LOCATIONS;
+        private final boolean WORLDTP_PLAYERS_IN_BLOCKS;
 
         private WorldsState() {
             this.ENABLE_INSTANCE = false;
             this.WORLD_TYPE = WorldType.FLAT;
             this.WORLD_LOCATIONS = new ArrayList<>();
+            this.WORLDTP_PLAYERS_IN_BLOCKS = false;
         }
     }
 
@@ -213,5 +214,8 @@ public class Settings {
     }
     public static List<String> getWorldLocations() { 
         return currentWorlds.WORLD_LOCATIONS; 
+    }
+    public static boolean getWorldTpPlayers() {
+        return currentWorlds.WORLDTP_PLAYERS_IN_BLOCKS;
     }
 }
