@@ -2,14 +2,9 @@ package dev.lavenderpowered.lavender;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.minestom.server.MinecraftServer;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 public class Settings {
@@ -149,7 +144,8 @@ public class Settings {
 
     public enum ServerListPlayers {
         SHOW("show"),
-        HIDE("hide");
+        HIDE("hide"),
+        CUSTOM("custom");
 
         private final String name;
 

@@ -1,8 +1,12 @@
 package dev.lavenderpowered.lavender;
 
+import net.minestom.server.ping.ResponseData;
+import net.minestom.server.utils.identity.NamedAndIdentified;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Utils {
@@ -12,6 +16,21 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
             return noFileResponse; // Fallback
+        }
+    }
+
+    public static void readCSL(ResponseData responseData, String noFileResponse) {
+        try (BufferedReader br = new BufferedReader(new FileReader("customsl.txt"))) {
+            List<String> lines = br.lines().toList();
+
+            for (String line : lines) {
+                responseData.addEntry(NamedAndIdentified.named(line));
+            }
+
+            responseData.addEntry(NamedAndIdentified.named(noFileResponse));
+        } catch (IOException e) {
+            e.printStackTrace();
+            responseData.addEntry(NamedAndIdentified.named(noFileResponse));
         }
     }
 }

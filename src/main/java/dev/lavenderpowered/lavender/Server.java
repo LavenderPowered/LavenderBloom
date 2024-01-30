@@ -20,6 +20,7 @@ import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.ping.ResponseData;
+import net.minestom.server.utils.identity.NamedAndIdentified;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,6 +36,7 @@ public class Server {
     public static final String VERSION = "&version";
     private static final String MOTD_FILE = "motd.txt";
     private static final String HELP_FILE = "help.txt";
+    private static final String SL_FILE = "customsl.txt";
     private static final String START_SCRIPT_FILENAME = "start.sh";
 
     public static void main(String[] args) throws IOException {
@@ -81,6 +83,17 @@ public class Server {
             logger.info("Modify the help.txt file to change /help output.");
         }
 
+        // Create ServerList file
+        File slTextFile = new File(SL_FILE);
+        if (slTextFile.isDirectory()) logger.warn("Can't create customsl.txt file!");
+        if (!slTextFile.isFile()) {
+            logger.info("Creating customsl file.");
+            Files.copy(
+                    Objects.requireNonNull(Server.class.getClassLoader().getResourceAsStream(HELP_FILE)),
+                    helpTextFile.toPath());
+            logger.info("Modify the customsl.txt file to change the Server List Players output. (Also change LIST_PLAYERS in settings.json to \"CUSTOM\")");
+        }
+
         // Create start script
         File startScriptFile = new File(START_SCRIPT_FILENAME);
         if (startScriptFile.isDirectory()) logger.warn("Can't create startup script!");
@@ -119,8 +132,12 @@ public class Server {
         globalEventHandler.addListener(ServerListPingEvent.class, event -> {
             ResponseData responseData = event.getResponseData();
             responseData.setDescription(Utils.readFromFile("motd.txt", "§7A §d§lLavender §7Server!"));
-            if (Settings.getServerListPlayers() == Settings.ServerListPlayers.HIDE) {
+            if (Settings.getServerListPlayers() == Settings.ServerListPlayers.SHOW) {
+                responseData.addEntries(MinecraftServer.getConnectionManager().getOnlinePlayers());
+            } else if (Settings.getServerListPlayers() == Settings.ServerListPlayers.HIDE) {
                 responseData.setPlayersHidden(true);
+            } else if (Settings.getServerListPlayers() == Settings.ServerListPlayers.CUSTOM) {
+                Utils.readCSL(responseData, "§cEdit/Create §4customsl.txt §cfile!");
             }
         });
 
@@ -130,7 +147,7 @@ public class Server {
 
         MinecraftServer.setBrandName("LavenderPowered (LP " + VERSION + "/MC " + MinecraftServer.VERSION_NAME + ")");
         logger.info("Running in " + Settings.getMode() + " mode. (Opened to LAN: " + OpenToLAN.isOpen() + ")");
-        logger.info("MOTD set to: " + Utils.readFromFile("motd.txt", "§7A §bBastom §7Server!"));
+        logger.info("MOTD set to: " + Utils.readFromFile("motd.txt", "§7A §d§lLavender §7Server!"));
         logger.info("Listening on " + Settings.getServerIp() + ":" + Settings.getServerPort());
 
         server.start(Settings.getServerIp(), Settings.getServerPort());
