@@ -22,12 +22,9 @@ public class Utils {
     public static void readCSL(ResponseData responseData, String noFileResponse) {
         try (BufferedReader br = new BufferedReader(new FileReader("customsl.txt"))) {
             List<String> lines = br.lines().toList();
-
             for (String line : lines) {
                 responseData.addEntry(NamedAndIdentified.named(line));
             }
-
-            responseData.addEntry(NamedAndIdentified.named(noFileResponse));
         } catch (IOException e) {
             e.printStackTrace();
             responseData.addEntry(NamedAndIdentified.named(noFileResponse));
