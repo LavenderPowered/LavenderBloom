@@ -89,8 +89,8 @@ public class Server {
         if (!slTextFile.isFile()) {
             logger.info("Creating customsl file.");
             Files.copy(
-                    Objects.requireNonNull(Server.class.getClassLoader().getResourceAsStream(HELP_FILE)),
-                    helpTextFile.toPath());
+                    Objects.requireNonNull(Server.class.getClassLoader().getResourceAsStream(SL_FILE)),
+                    slTextFile.toPath());
             logger.info("Modify the customsl.txt file to change the Server List Players output. (Also change LIST_PLAYERS in settings.json to \"CUSTOM\")");
         }
 
