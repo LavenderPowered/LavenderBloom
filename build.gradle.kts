@@ -13,7 +13,8 @@ dependencies {
     implementation(libs.minestom)
     implementation(libs.minestomext)
     implementation(libs.slf4j)
-    implementation(libs.polar)
+    implementation(libs.jlineterm)
+    implementation(libs.jlineread)
     implementation("com.google.code.gson:gson:2.10.1")
 }
 

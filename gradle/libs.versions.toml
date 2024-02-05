@@ -6,6 +6,8 @@ minestom = "1554487748"
 minestomext = "1.2.0"
 polar = "1.3.2"
 slf4j = "2.0.11"
+jlineterm = "3.25.1"
+jlineread = "3.25.1"
 
 # Gradle plugins
 blossom = "1.3.0"
@@ -17,6 +19,8 @@ minestom = { group = "dev.hollowcube", name = "minestom-ce", version.ref = "mine
 minestomext = { group = "dev.hollowcube", name = "minestom-ce-extensions", version.ref = "minestomext" }
 polar = { group = "dev.hollowcube", name = "polar", version.ref = "polar" }
 slf4j = { group = "org.slf4j", name = "slf4j-simple", version.ref = "slf4j" }
+jlineterm = { group = "org.jline", name = "jline-terminal", version.ref = "jlineterm" }
+jlineread = { group = "org.jline", name = "jline-reader", version.ref = "jlineread" }
 
 [bundles]
 

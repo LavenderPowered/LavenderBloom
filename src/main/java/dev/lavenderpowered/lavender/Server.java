@@ -47,8 +47,6 @@ public class Server {
             System.setProperty("minestom.chunk-view-distance", Settings.getChunkViewDistance());
         if (Settings.getEntityViewDistance() != null)
             System.setProperty("minestom.entity-view-distance", Settings.getEntityViewDistance());
-        if (Settings.isTerminalDisabled())
-            System.setProperty("minestom.terminal.disabled", "");
 
         if (! (args.length > 0 && args[0].equalsIgnoreCase("-q"))) {
             logger.info("====== VERSIONS ======");
@@ -143,6 +141,10 @@ public class Server {
 
         if (Settings.isOpenToLAN()) {
             OpenToLAN.open();
+        }
+
+        if (!Settings.isTerminalDisabled()) {
+            LavenderTerminal.start();
         }
 
         MinecraftServer.setBrandName("LavenderPowered (LP " + VERSION + "/MC " + MinecraftServer.VERSION_NAME + ")");
