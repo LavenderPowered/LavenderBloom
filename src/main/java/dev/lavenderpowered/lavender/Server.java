@@ -10,7 +10,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.event.player.PlayerLoginEvent;
+import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.event.server.ServerListPingEvent;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.bungee.BungeeCordProxy;
@@ -18,6 +18,7 @@ import net.minestom.server.extras.lan.OpenToLAN;
 import net.minestom.server.extras.velocity.VelocityProxy;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
+import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.ping.ResponseData;
 import net.minestom.server.utils.identity.NamedAndIdentified;
@@ -52,7 +53,7 @@ public class Server {
             logger.info("====== VERSIONS ======");
             logger.info("Java: " + Runtime.version());
             logger.info("&Name: " + VERSION);
-            logger.info("Minestom(-ce) commit: " + "&commit");
+            logger.info("Minestom commit: " + "&commit");
             logger.info("Supported protocol: %d (%s)".formatted(MinecraftServer.PROTOCOL_VERSION, MinecraftServer.VERSION_NAME));
             logger.info("======================");
         }
@@ -162,9 +163,9 @@ public class Server {
             InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
             instanceContainer.setGenerator(unit ->
                     unit.modifier().fillHeight(0, 4, Block.GRASS_BLOCK));
-            // Add an event callback to specify the spawning instance (and the spawn position)
+            instanceContainer.setChunkSupplier(LightingChunk::new);
             GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
-            globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+            globalEventHandler.addListener(AsyncPlayerConfigurationEvent.class, event -> {
                 final Player player = event.getPlayer();
                 event.setSpawningInstance(instanceContainer);
                 player.setRespawnPoint(new Pos(0, 5, 0));
@@ -189,7 +190,7 @@ public class Server {
             logger.warn("There is no instance enabled! You can change that in worlds.json file.");
         }
 
-        MinecraftServer.getGlobalEventHandler().addListener(PlayerLoginEvent.class, event -> {
+        MinecraftServer.getGlobalEventHandler().addListener(AsyncPlayerConfigurationEvent.class, event -> {
             if (instanceManager.getInstances().isEmpty())
                 event.getPlayer().kick(Component.text("There is no instance available!\n" +
                         "You can enable a basic flat instance in worlds.json using \"FLAT\" as world_type\n" +

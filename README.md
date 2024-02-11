@@ -57,7 +57,7 @@ There is also a config file for worlds. In this edition there is only flat insta
 ```
 You have to restart the server for changes in there to take effect.
 
-Note that this server only supports 1.20.1 clients on version 1.0.0. To allow other/multiple versions to connect you need to use a proxy (ex. Velocity) with plugins like ViaVersion.
+Note that this server only supports 1.20.4 clients on version 1.0.0. To allow other/multiple versions to connect you need to use a proxy (ex. Velocity) with plugins like ViaVersion.
 
 ### Restarting
 Restarting the server calls the `./start.sh` script.
