@@ -9,7 +9,7 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
-import net.minestom.server.event.player.PlayerLoginEvent;
+import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
 import net.minestom.server.instance.AnvilLoader;
 import net.minestom.server.instance.InstanceContainer;
 import net.minestom.server.instance.InstanceManager;
@@ -26,7 +26,7 @@ public class WorldLoading {
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
         instanceContainer.setChunkLoader(new AnvilLoader(worldLocation));
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
-        globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+        globalEventHandler.addListener(AsyncPlayerConfigurationEvent.class, event -> {
             final Player player = event.getPlayer();
             event.setSpawningInstance(instanceContainer);
             // Figure out how to get spawn coordinates
@@ -39,7 +39,7 @@ public class WorldLoading {
         InstanceContainer instanceContainer = instanceManager.createInstanceContainer();
         instanceContainer.setChunkLoader(new PolarLoader(Path.of(worldLocation + ".polar")));
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
-        globalEventHandler.addListener(PlayerLoginEvent.class, event -> {
+        globalEventHandler.addListener(AsyncPlayerConfigurationEvent.class, event -> {
             final Player player = event.getPlayer();
             event.setSpawningInstance(instanceContainer);
             // Figure out how to get spawn coordinates
